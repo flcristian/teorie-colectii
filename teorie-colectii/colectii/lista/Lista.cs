@@ -10,7 +10,7 @@ namespace teorie_colectii.colectii.lista
 {
     public class Lista<T> : ILista<T> where T : IComparable<T>
     {
-        private Node<T> _head = null;
+        private Node<T> _head;
 
         public Node<T> Iterator()
         {
@@ -167,7 +167,7 @@ namespace teorie_colectii.colectii.lista
 
             Node<T> node = _head;
 
-            while(node != null)
+            while (node != null)
             {
                 count++;
                 node = node.Next;
@@ -176,9 +176,24 @@ namespace teorie_colectii.colectii.lista
             return count;
         }
 
+        // Sorting
+
         private void SwapWithNext(int index)
         {
+            Node<T> node = _head;
 
+            if(_head != null && _head.Next != null)
+            {
+                while (index > 0 && node.Next != null)
+                {
+                    node = node.Next;
+                    index--;
+                }
+
+                T aux = node.Data;
+                node.Data = node.Next.Data;
+                node.Next.Data = aux;
+            }
         }
 
         public void SortAscending()
@@ -187,19 +202,36 @@ namespace teorie_colectii.colectii.lista
             int i = 0;
             while(flag && i < Count())
             {
+                flag = false;
                 for(int j = Count() - 1; j > i; j--)
                 {
                     if(ElementAt(j).CompareTo(ElementAt(j - 1)) == -1)
                     {
-
+                        SwapWithNext(j - 1);
+                        flag = true;
                     }
                 }
+                i++;
             }
         }
 
         public void SortDescending()
         {
-
+            bool flag = true;
+            int i = 0;
+            while (flag && i < Count())
+            {
+                flag = false;
+                for (int j = Count() - 1; j > i; j--)
+                {
+                    if (ElementAt(j).CompareTo(ElementAt(j - 1)) == 1)
+                    {
+                        SwapWithNext(j - 1);
+                        flag = true;
+                    }
+                }
+                i++;
+            }
         }
     }
 }

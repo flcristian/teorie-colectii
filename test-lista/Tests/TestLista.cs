@@ -169,5 +169,55 @@ namespace test_lista.Tests
             output.WriteLine(lista.ToString());
             output.WriteLine(lista.ElementAt(4).ToString());
         }
+
+        [Fact]
+        public void TestSortAscending()
+        {
+            // Arrange
+            Lista<Person> lista = new Lista<Person>();
+            Person andrei = new Person(0, 20, "Andrei", "andrei@email.com");
+            Person maria = new Person(1, 23, "Maria", "maria@email.com");
+            Person gabriel = new Person(2, 19, "Gabriel", "gabriel@email.com");
+            Person george = new Person(3, 20, "George", "george@email.com");
+            Person andra = new Person(4, 23, "Andra", "andra@email.com");
+            Person paul = new Person(5, 19, "Paul", "paul@email.com");
+            lista.Add(andrei);
+            lista.Add(maria);
+            lista.Add(gabriel);
+            lista.Add(george);
+            lista.Add(andra);
+            lista.Add(paul);
+
+            // Act
+            lista.SortAscending();
+
+            // Assert
+            output.WriteLine(lista.ToString());
+        }
+
+        [Fact]
+        public void TestSortDescending()
+        {
+            // Arrange
+            Lista<Person> lista = new Lista<Person>();
+            Person andrei = new Person(0, 20, "Andrei", "andrei@email.com");
+            Person maria = new Person(1, 23, "Maria", "maria@email.com");
+            Person gabriel = new Person(2, 19, "Gabriel", "gabriel@email.com");
+            Person george = new Person(3, 20, "George", "george@email.com");
+            Person andra = new Person(4, 23, "Andra", "andra@email.com");
+            Person paul = new Person(5, 19, "Paul", "paul@email.com");
+            lista.Add(andrei);
+            lista.Add(maria);
+            lista.Add(gabriel);
+            lista.Add(george);
+            lista.Add(andra);
+            lista.Add(paul);
+
+            // Act
+            lista.SortDescending();
+
+            // Assert
+            output.WriteLine(lista.ToString());
+        }
     }
 }
