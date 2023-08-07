@@ -10,6 +10,46 @@ namespace teorie_colectii.colectii.coada
     {
         private Node<T> _head;
 
+        public void Push(T data)
+        {
+            if(_head == null)
+            {
+                Node<T> node = new Node<T>(data, _head);
+                _head = node;
+            }
+            else
+            {
+                Node<T> node = _head;
+                while(node.Next != null)
+                {
+                    node = node.Next;
+                }
+                node.Next = new Node<T>(data, null);
+            }
+        }
+
+        public void Pop()
+        {
+            if (_head != null)
+            {
+                _head = _head.Next;
+            }
+        }
+
+        public T Peek()
+        {
+            return _head.Data;
+        }
+
+        public bool IsEmpty()
+        {
+            if(_head == null)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public Node<T> Iterator()
         {
             return _head; ;
