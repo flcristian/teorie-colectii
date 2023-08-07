@@ -57,7 +57,7 @@ namespace test_lista.Tests
         }
 
         [Fact]
-        public void TestPeekk()
+        public void TestPeek()
         {
             // Arrange
             Stiva<Car> stiva = new Stiva<Car>();
@@ -81,9 +81,6 @@ namespace test_lista.Tests
         {
             // Arrange
             Stiva<Car> stiva = new Stiva<Car>();
-            Car a = new Car(0, "a", "a", "a");
-            Car b = new Car(1, "b", "b", "b");
-            Car c = new Car(2, "c", "c", "c");
 
             // Act
             bool empty = stiva.IsEmpty();
