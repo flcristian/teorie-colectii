@@ -96,7 +96,6 @@ namespace teorie_colectii.car.model
 
             if (_year > other._year)
             {
-
                 return 1;
             }
             else if (_year < other._year)
