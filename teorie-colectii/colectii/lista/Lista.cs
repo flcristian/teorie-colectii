@@ -29,7 +29,7 @@ namespace teorie_colectii.colectii.lista
             Node<T> it = Iterator();
             while(it != null)
             {
-                desc += it;
+                desc += it + "\n";
                 it = it.Next;
             }
 
@@ -161,7 +161,7 @@ namespace teorie_colectii.colectii.lista
             return default(T);
         }
 
-        private int Count()
+        public int Count()
         {
             int count = 0;
 
