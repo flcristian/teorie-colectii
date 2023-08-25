@@ -52,6 +52,7 @@ namespace teorie_colectii.colectii.stiva
             {
                 desc += it;
                 it = it.Next;
+                desc += "\n";
             }
 
             return desc;

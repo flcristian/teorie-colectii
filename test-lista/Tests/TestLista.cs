@@ -1,4 +1,5 @@
-﻿using teorie_colectii.car.model;
+﻿using System.Collections.Generic;
+using teorie_colectii.car.model;
 using teorie_colectii.colectii;
 using teorie_colectii.colectii.lista;
 using teorie_colectii.person.model;
@@ -420,6 +421,225 @@ namespace test_lista.Tests
             }
 
             output.WriteLine(list.ToString());
+        }
+
+        // Problema 10
+        // Să se scrie o funcție C++ care inserează înaintea
+        // fiecărui element par al unei liste simplu înlănțuită dublul său.
+
+        [Fact]
+        public void Problema10()
+        {
+            Lista<int> list = new Lista<int>();
+            list.Add(1); list.Add(6); list.Add(6);
+            list.Add(4); list.Add(5);
+
+            Lista<int> newlist = new Lista<int>();
+            while (list.Count() > 0)
+            {
+                int number = list.Iterator().Data;
+                if (number % 2 == 0)
+                {
+                    newlist.Add(number * 2);
+                }
+                newlist.Add(number);
+                list.RemoveStart();
+            }
+
+            while (newlist.Count() > 0)
+            {
+                list.Add(newlist.Iterator().Data);
+                newlist.RemoveStart();
+            }
+
+            // Assert
+
+            Lista<int> check = new Lista<int>();
+            check.Add(1); check.Add(12); check.Add(6);
+            check.Add(12); check.Add(6); check.Add(8);
+            check.Add(4); check.Add(5);
+
+            while (check.Count() > 0)
+            {
+                Assert.Equal(check.Iterator().Data, list.Iterator().Data);
+                check.RemoveStart();
+                list.RemoveStart();
+            }
+        }
+
+        // Problema 11
+        // Să se scrie o funcție care interclasează două liste.
+
+        [Fact]
+        public void Problema11()
+        {
+            Lista<int> a = new Lista<int>();
+            a.Add(1); a.Add(3); a.Add(5); a.Add(6); a.Add(10);
+            Lista<int> b = new Lista<int>();
+            b.Add(2); b.Add(3); b.Add(7); b.Add(8);
+
+            Lista<int> c = new Lista<int>();
+            while(a.Count() > 0 && b.Count() > 0)
+            {
+                int ai = a.Iterator().Data, bi = b.Iterator().Data;
+                if(ai < bi)
+                {
+                    c.Add(ai);
+                    a.RemoveStart();
+                } 
+                else if(ai == bi)
+                {
+                    c.Add(ai);
+                    a.RemoveStart();
+                    b.RemoveStart();
+                }
+                else
+                {
+                    c.Add(bi);
+                    b.RemoveStart();
+                }
+            }
+            while(a.Count() > 0)
+            {
+                c.Add(a.Iterator().Data);
+                a.RemoveStart();
+            }
+            while (b.Count() > 0)
+            {
+                c.Add(b.Iterator().Data);
+                b.RemoveStart();
+            }
+
+            // Assert
+
+            Lista<int> check = new Lista<int>();
+            check.Add(1); check.Add(2); check.Add(3);
+            check.Add(5); check.Add(6); check.Add(7);
+            check.Add(8); check.Add(10);
+
+            while (check.Count() > 0)
+            {
+                Assert.Equal(check.Iterator().Data, c.Iterator().Data);
+                check.RemoveStart();
+                c.RemoveStart();
+            }
+        }
+
+        // Problema 12
+        // Sa se scrie o functie care sorteaza o lista crescator.
+
+        [Fact]
+        public void Problema12()
+        {
+            Lista<int> list = new Lista<int>();
+            list.Add(6); list.Add(1); list.Add(3); list.Add(10);
+            list.Add(9); list.Add(3); list.Add(4); list.Add(2);
+
+            Lista<int> final = new Lista<int>();
+            bool flag = true;
+            while(flag && list.Count() > 1)
+            {
+                flag = false;
+                for(int j = list.Count() - 1; j > 0; j--)
+                {
+                    if (list.ElementAt(j) < list.ElementAt(j - 1))
+                    {
+                        int r = list.ElementAt(j - 1);
+                        list.Remove(j - 1);
+                        list.Add(r, j);
+                        flag = true;
+                    }
+                }
+                final.Add(list.Iterator().Data);
+                list.RemoveStart();
+            }
+
+            while(list.Count() > 0)
+            {
+                final.Add(list.Iterator().Data);
+                list.RemoveStart();
+            }
+
+            // Assert
+            Lista<int> check = new Lista<int>();
+            check.Add(1); check.Add(2); check.Add(3); check.Add(3);
+            check.Add(4); check.Add(6); check.Add(9); check.Add(10);
+
+            while (check.Count() > 0)
+            {
+                Assert.Equal(check.Iterator().Data, final.Iterator().Data);
+                check.RemoveStart();
+                final.RemoveStart();
+            }
+        }
+
+        // Problema 13
+        // Sa se verifice dacă o listă simplu înlănțuită formează un palindrom.
+
+        [Fact]
+        public void Problema13()
+        {
+            Lista<int> list = new Lista<int>();
+            list.Add(1); list.Add(2); list.Add(7); list.Add(2); list.Add(1);
+
+            bool palindrom = true;
+            while(list.Count() > 1)
+            {
+                if(list.Iterator().Data != list.ElementAt(list.Count() - 1))
+                {
+                    palindrom = false;
+                    break;
+                }
+                list.RemoveStart();
+                list.Remove(list.Count() - 1);
+            }
+
+            // Assert
+
+            Assert.True(palindrom);
+        }
+
+        // Problema 14
+        // Să se scrie o funcție care să elimine nodurile care conțin
+        // duplicate dintr-o listă care are valorile ordonate crescător.
+
+        [Fact]
+        public void Problema14()
+        {
+            Lista<int> list = new Lista<int>();
+            list.Add(3); list.Add(3); list.Add(3);
+            list.Add(5); list.Add(5); list.Add(7);
+            list.Add(10); list.Add(10);
+
+            Lista<int> mod = new Lista<int>();
+            int last = -1;
+            while(list.Count() > 0)
+            {
+                if(list.Iterator().Data != last)
+                {
+                    last = list.Iterator().Data;
+                    mod.Add(last);
+                }
+                list.RemoveStart();
+            }
+
+            while(mod.Count() > 0)
+            {
+                list.Add(mod.Iterator().Data);
+                mod.RemoveStart();
+            }
+
+            // Assert
+
+            Lista<int> check = new Lista<int>();
+            check.Add(3); check.Add(5); check.Add(7); check.Add(10);
+
+            while (check.Count() > 0)
+            {
+                Assert.Equal(check.Iterator().Data, list.Iterator().Data);
+                check.RemoveStart();
+                list.RemoveStart();
+            }
         }
     }
 }

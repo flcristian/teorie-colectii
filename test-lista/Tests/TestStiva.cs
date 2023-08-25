@@ -233,7 +233,6 @@ namespace test_lista.Tests
         // pas nu va face nimic(din moment ce cartea cu numărul 1 este deja în ghiozdan) și în cadrul ultimului
         // pas va muta o singură carte(cartea cu numărul 3).
 
-        // ? ? ? ? ?
         [Fact]
         public void Problema2()
         {
@@ -249,21 +248,18 @@ namespace test_lista.Tests
                 bool found = false;
                 Stiva<int> removed = new Stiva<int>();
 
-                if (!carti.IsEmpty())
+                while (!carti.IsEmpty() && carti.Peek() != pas)
                 {
-                    while (carti.Peek() != pas)
-                    {
-                        removed.Push(carti.Peek());
-                        carti.Pop();
-                        c++;
-                    }
-                    if (carti.Peek() == pas)
-                    {
-                        found = true;
-                        carti.Pop();
-                        c++;
-                    }
-                }              
+                    removed.Push(carti.Peek());
+                    carti.Pop();
+                    c++;
+                }
+                if (!carti.IsEmpty() && carti.Peek() == pas)
+                {
+                    found = true;
+                    carti.Pop();
+                    c++;
+                }
 
                 if (!found)
                 {
@@ -361,6 +357,7 @@ namespace test_lista.Tests
             output.WriteLine(depth.ToString());
         }
 
+        // Problema 5
         // Se dă un șir cu n elemente, numere naturale.
         // Să se afișeze, pentru fiecare element din șir, valoarea din șir aflată după acesta
         // și mai mare decât acesta (Următorul Element Mai Mare). Dacă o asemenea valoare nu
@@ -369,22 +366,41 @@ namespace test_lista.Tests
         [Fact]
         public void Problema5()
         {
-            Stiva<int> stack = new Stiva<int>();
-            stack.Push(3); stack.Push(4);
-            stack.Push(3); stack.Push(5);
-            stack.Push(1);
+            int count = 5;
+            int[] numbers = new int[5] { 3, 4, 3, 5, 1 };
 
-            Stiva<int> maxstack = new Stiva<int>();
-            Stiva<int> passed = new Stiva<int>();
-            int nou = stack.Peek();
-            for (int i = 0; i < 5; i++)
+            Stiva<int> maxnr = new Stiva<int>();
+            Stiva<int> check = new Stiva<int>();
+
+            int pos = count - 1;
+            while(pos > -1)
             {
+                int max = -1;
+                for (int i = pos + 1; i < count; i++)
+                {
+                    check.Push(numbers[i]);
+                }
+
+                while (!check.IsEmpty())
+                {
+                    if(check.Peek() > numbers[pos])
+                    {
+                        max = check.Peek();
+                    }
+                    check.Pop();
+                }
+                maxnr.Push(max);
+                pos--;
             }
 
-            while (!maxstack.IsEmpty())
+            int[] assert = new int[5] { 4, 5, 5, -1, -1 };
+
+            int k = 0;
+            while (k < count)
             {
-                output.WriteLine(maxstack.Peek().ToString());
-                maxstack.Pop();
+                Assert.Equal(assert[k], maxnr.Iterator().Data);
+                maxnr.Pop();
+                k++;
             }
         }
     }
