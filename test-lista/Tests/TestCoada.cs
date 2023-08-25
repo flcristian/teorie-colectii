@@ -142,9 +142,63 @@ namespace test_lista.Tests
         [Fact]
         public void Problema3()
         {
-            // ? ? ? 
-        }
+            int n = 25, a = 3, x = 4, y = 11;
 
-        // Problema 4
+            Coada<int> final = new Coada<int>();
+            final.Push(a);
+
+            Coada<int> xnumbers = new Coada<int>(), ynumbers = new Coada<int>();
+            int ax = a + x, ay = a + y;
+            while (ax <= n)
+            {
+                xnumbers.Push(ax);
+                ax += x;
+            }
+            while (ay <= n)
+            {
+                ynumbers.Push(ay);
+                ay += y;
+            }
+
+            while(!xnumbers.IsEmpty() && !ynumbers.IsEmpty())
+            {
+                if(xnumbers.Peek() == ynumbers.Peek())
+                {
+                    final.Push(xnumbers.Peek());
+                    xnumbers.Pop();
+                    ynumbers.Pop();
+                }
+                else if(xnumbers.Peek() < ynumbers.Peek())
+                {
+                    final.Push(xnumbers.Peek());
+                    xnumbers.Pop();
+                }
+                else
+                {
+                    final.Push(ynumbers.Peek());
+                    ynumbers.Pop();
+                }
+            }
+
+            while (!xnumbers.IsEmpty())
+            {
+                final.Push(xnumbers.Peek());
+                xnumbers.Pop();
+            }
+
+            while (!ynumbers.IsEmpty())
+            {
+                final.Push(ynumbers.Peek());
+                ynumbers.Pop();
+            }
+
+            int[] assert = new int[8] { 3, 7, 11, 14, 15, 19, 23, 25 };
+            
+            for(int j = 0; j < 8; j++)
+            {
+                Assert.Equal(assert[j], final.Peek());
+                final.Pop();
+            }
+        }
     }
 }

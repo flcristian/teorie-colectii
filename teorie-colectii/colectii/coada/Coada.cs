@@ -64,6 +64,7 @@ namespace teorie_colectii.colectii.coada
             {
                 desc += it;
                 it = it.Next;
+                desc += "\n";
             }
 
             return desc;
