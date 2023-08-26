@@ -403,5 +403,15 @@ namespace test_lista.Tests
                 k++;
             }
         }
+
+        // Problema 6
+        // Se consideră o expresie corectă formată din
+        // numere naturale și operatorii +, -, *. Să se evalueze expresia.
+
+        [Fact]
+        public void Problema6()
+        {
+
+        }
     }
 }
