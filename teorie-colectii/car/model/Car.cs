@@ -8,68 +8,75 @@ namespace teorie_colectii.car.model
 {
     public class Car: IComparable<Car>
     {
-        private int _id;
-        private String _name;
+        private String _make;
         private String _model;
         private String _color;
         private int _year;
 
         // Constructors
 
-        public Car(int id, String name, String model, String color)
+        public Car(String make, String model, String color)
         {
-            _id = id;
-            _name = name;
+            _make = make;
             _model = model;
             _color = color;
         }
 
-        // Accessors
-
-        public int Id
+        public Car()
         {
-            get { return _id; }
-            set
-            {
-                _id = value;
-            }
+            _make = "default";
+            _model = "default";
+            _color = "default";
+            _year = 2023;
         }
 
-        public String Name
+        #region ACCESSORS
+
+        public String GetMake() { return _make; }
+
+        public String GetModel() { return _model; }
+
+        public String GetColor() { return _color; }
+
+        public Int32 GetYear() { return _year; }
+
+        public void SetMake(String make) { _make = make; }
+
+        public void SetModel(String model) { _model = model; }
+
+        public void SetColor(String color) { _color = color; }
+
+        public void SetYear(Int32 year) { _year = year; }
+
+        #endregion
+
+        #region BUILDER
+
+        public Car Make(String make)
         {
-            get { return _name; }
-            set
-            {
-                _name = value;
-            }
+            _make = make;
+            return this;
         }
 
-        public String Model
+        public Car Model(String model)
         {
-            get { return _model; }
-            set
-            {
-                _model = value;
-            }
+            _model = model;
+            return this;
         }
 
-        public String Color
+        public Car Color(String color)
         {
-            get { return _color; }
-            set
-            {
-                _color = value;
-            }
+            _color = color;
+            return this;
         }
 
-        public int Year
+        public Car Year(Int32 year)
         {
-            get { return _year; }
-            set
-            {
-                _year = value;
-            }
+            _year = year;
+            return this;
         }
+
+        #endregion
 
         // Methods
 
@@ -77,8 +84,7 @@ namespace teorie_colectii.car.model
         {
             string desc = "";
 
-            desc += $"Id : {_id}\n";
-            desc += $"Name : {_name}\n";
+            desc += $"Make : {_make}\n";
             desc += $"Model : {_model}\n";
             desc += $"Color : {_color}\n";
             desc += $"Year : {_year}\n";
@@ -88,7 +94,7 @@ namespace teorie_colectii.car.model
 
         public override bool Equals(object? obj)
         {
-            return (obj as Car)._id == _id && (obj as Car)._name.Equals(_name) && (obj as Car)._model.Equals(_model) && (obj as Car)._color.Equals(_color) && (obj as Car)._year == _year;
+            return (obj as Car)._make.Equals(_make) && (obj as Car)._model.Equals(_model) && (obj as Car)._color.Equals(_color) && (obj as Car)._year == _year;
         }
 
         public int CompareTo(Car? other)

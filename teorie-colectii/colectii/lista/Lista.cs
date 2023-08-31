@@ -36,6 +36,26 @@ namespace teorie_colectii.colectii.lista
             return desc;
         }
 
+        public override bool Equals(object? obj)
+        {
+            Node<T> it1 = _head, it2 = (obj as Lista<T>)._head;
+
+            while(it1 != null && it2 != null)
+            {
+                if(!it1.Data.Equals(it2.Data))
+                {
+                    return false;
+                }
+                it1 = it1.Next;
+                it2 = it2.Next;
+            }
+            if(it1 != null || it2 != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
         public void AddStart(T data)
         {
             if (_head == null)
