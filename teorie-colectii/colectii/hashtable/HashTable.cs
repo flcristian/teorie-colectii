@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using teorie_colectii.colectii.entry;
@@ -47,14 +48,31 @@ namespace teorie_colectii.colectii.hashtable
             return desc;
         }
 
-        public bool ContainsKey(K key)
+        public Boolean ContainsKey(K key)
         {
-            throw new NotImplementedException();
+            if(Get(key) == null)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public bool ContainsValue(K key)
+        public Boolean ContainsValue(V value)
         {
-            throw new NotImplementedException();
+            for(int i = 0; i < _entries.Length; i++)
+            {
+                Node<Entry<K, V>> it = _entries[i].Iterator();
+
+                while(it != null)
+                {
+                    if (it.Data.GetValue().Equals(value))
+                    {
+                        return true;
+                    }
+                    it = it.Next;
+                }
+            }
+            return false;
         }
 
         public ILista<Entry<K, V>> EntryList()
@@ -91,14 +109,34 @@ namespace teorie_colectii.colectii.hashtable
             return default(V);
         }
 
-        public bool IsEmpty()
+        public Boolean IsEmpty()
         {
-            throw new NotImplementedException();
+            for(int i = 0;i < _entries.Length; i++)
+            {
+                if (_entries[i].Iterator() != null)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public ILista<K> KeyList()
         {
-            throw new NotImplementedException();
+            ILista<K> list = new Lista<K>();
+
+            for (int i = 0; i < _entries.Length; i++)
+            {
+                Node<Entry<K, V>> it = _entries[i].Iterator();
+
+                while(it != null)
+                {
+                    list.Add(it.Data.GetKey());
+                    it = it.Next;
+                }
+            }
+
+            return list;
         }
 
         public void Put(K key, V value)
@@ -108,20 +146,46 @@ namespace teorie_colectii.colectii.hashtable
 
         public void Remove(K key)
         {
-            throw new NotImplementedException();
+            int index = HashKey(key);
+            Node<Entry<K, V>> it = _entries[index].Iterator();
+
+            int i = 0;
+            while(it != null)
+            {
+                if (it.Data.GetKey().Equals(key))
+                {
+                    _entries[index].Remove(i);
+                    return;
+                }
+                it = it.Next;
+                i++;
+            }
         }
 
-        public int Size()
+        public Int32 Size()
         {
-            throw new NotImplementedException();
+            return _entries.Length;
         }
 
         public ILista<V> Values()
         {
-            throw new NotImplementedException();
+            ILista<V> values = new Lista<V>();
+
+            for(int i = 0; i < _entries.Length; i++)
+            {
+                Node<Entry<K, V>> it = _entries[i].Iterator();
+
+                while(it != null)
+                {
+                    values.Add(it.Data.GetValue());
+                    it = it.Next;
+                }
+            }
+
+            return values;
         }
 
-        public int HashKey(K key)
+        public Int32 HashKey(K key)
         {
             return key.ToString().Length % this._entries.Length;
 

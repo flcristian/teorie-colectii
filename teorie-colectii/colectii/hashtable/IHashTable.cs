@@ -24,11 +24,10 @@ namespace teorie_colectii.colectii.hashtable
 
         Boolean ContainsKey(K key);
 
-        Boolean ContainsValue(K key);
+        Boolean ContainsValue(V value);
 
         Int32 Size();
 
         Boolean IsEmpty();
-
     }
 }
