@@ -30,9 +30,9 @@ namespace test_lista.Tests
         {
             // Arrange
             Stiva<Car> stiva = new Stiva<Car>();
-            Car a = new Car(0, "a", "a", "a");
-            Car b = new Car(1, "b", "b", "b");
-            Car c = new Car(2, "c", "c", "c");
+            Car a = new Car("a", "a", "a");
+            Car b = new Car("b", "b", "b");
+            Car c = new Car("c", "c", "c");
 
             // Act
             stiva.Push(a);
@@ -48,9 +48,9 @@ namespace test_lista.Tests
         {
             // Arrange
             Stiva<Car> stiva = new Stiva<Car>();
-            Car a = new Car(0, "a", "a", "a");
-            Car b = new Car(1, "b", "b", "b");
-            Car c = new Car(2, "c", "c", "c");
+            Car a = new Car("a", "a", "a");
+            Car b = new Car("b", "b", "b");
+            Car c = new Car("c", "c", "c");
             stiva.Push(a);
             stiva.Push(b);
             stiva.Push(c);
@@ -67,9 +67,9 @@ namespace test_lista.Tests
         {
             // Arrange
             Stiva<Car> stiva = new Stiva<Car>();
-            Car a = new Car(0, "a", "a", "a");
-            Car b = new Car(1, "b", "b", "b");
-            Car c = new Car(2, "c", "c", "c");
+            Car a = new Car("a", "a", "a");
+            Car b = new Car("b", "b", "b");
+            Car c = new Car("c", "c", "c");
             stiva.Push(a);
             stiva.Push(b);
             stiva.Push(c);

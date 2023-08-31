@@ -7,11 +7,11 @@ namespace teorie_colectii.car.comparators
     {
         public int Compare(Car x, Car y)
         {
-            if(x.Model.Length < y.Model.Length)
+            if(x.GetModel().Length < y.GetModel().Length)
             {
                 return 1;
             } 
-            else if (x.Model.Length > y.Model.Length)
+            else if (x.GetModel().Length > y.GetModel().Length)
             {
                 return -1;
             }
