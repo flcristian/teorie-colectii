@@ -8,6 +8,7 @@ namespace teorie_colectii.car.model
 {
     public class Car: IComparable<Car>
     {
+        private int _id;
         private String _make;
         private String _model;
         private String _color;
@@ -15,15 +16,18 @@ namespace teorie_colectii.car.model
 
         // Constructors
 
-        public Car(String make, String model, String color)
+        public Car(int id, String make, String model, String color, int year)
         {
+            _id = id;
             _make = make;
             _model = model;
             _color = color;
+            _year = year;
         }
 
         public Car()
         {
+            _id = -1;
             _make = "default";
             _model = "default";
             _color = "default";
@@ -32,6 +36,8 @@ namespace teorie_colectii.car.model
 
         #region ACCESSORS
 
+        public int GetId() { return _id; }
+
         public String GetMake() { return _make; }
 
         public String GetModel() { return _model; }
@@ -39,6 +45,8 @@ namespace teorie_colectii.car.model
         public String GetColor() { return _color; }
 
         public Int32 GetYear() { return _year; }
+
+        public void SetId(int id) { _id = id; }
 
         public void SetMake(String make) { _make = make; }
 
@@ -51,6 +59,12 @@ namespace teorie_colectii.car.model
         #endregion
 
         #region BUILDER
+
+        public Car Id(int id)
+        {
+            _id = id;
+            return this;
+        }
 
         public Car Make(String make)
         {
@@ -84,6 +98,7 @@ namespace teorie_colectii.car.model
         {
             string desc = "";
 
+            desc += $"Id : {_id}\n";
             desc += $"Make : {_make}\n";
             desc += $"Model : {_model}\n";
             desc += $"Color : {_color}\n";
@@ -94,7 +109,7 @@ namespace teorie_colectii.car.model
 
         public override bool Equals(object? obj)
         {
-            return (obj as Car)._make.Equals(_make) && (obj as Car)._model.Equals(_model) && (obj as Car)._color.Equals(_color) && (obj as Car)._year == _year;
+            return (obj as Car)._id == _id && (obj as Car)._make.Equals(_make) && (obj as Car)._model.Equals(_model) && (obj as Car)._color.Equals(_color) && (obj as Car)._year == _year;
         }
 
         public int CompareTo(Car? other)
