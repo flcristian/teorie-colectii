@@ -10,6 +10,7 @@ namespace teorie_colectii.colectii.hashtable
 {
     public interface IHashTable<K,V> where K : IComparable<K> where V : IComparable<V>
     {
+        //todo:
         ILista<K> KeyList();
 
         ILista<V> Values();

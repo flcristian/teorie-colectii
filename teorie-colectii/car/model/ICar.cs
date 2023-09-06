@@ -8,6 +8,7 @@ namespace teorie_colectii.car.model
 {
     public interface ICar
     {
+        Car Id(int id);
         Car Make(String make);
 
         Car Model(String model);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace teorie_colectii.person.model
 {
-    public class Person : IComparable<Person>
+    public class Person : IComparable<Person>, IPerson
     {
         private int _id;
         private int _age;
@@ -23,43 +23,61 @@ namespace teorie_colectii.person.model
             _email = email;
         }
 
-        // Accessors
-
-        public int Id
+        public Person()
         {
-            get { return _id; }
-            set
-            {
-                _id = value;
-            }
+            _id = -1;
+            _age = 0;
+            _name = "none";
+            _email = "none";
         }
 
-        public int Age
+        #region ACCESSORS
+
+        public int GetId() { return _id; }
+
+        public int GetAge() { return _age; }
+
+        public String GetName() { return _name; }
+
+        public String GetEmail() { return _email; }
+
+        public void SetId(int id) { _id = id; }
+
+        public void SetAge(int age) { _age = age; }
+
+        public void SetName(String name) { _name = name; }
+
+        public void SetEmail(String email) { _email = email; }
+
+        #endregion
+
+        #region BUILDER
+
+        public Person Id(int id)
         {
-            get { return _age; }
-            set
-            {
-                _age = value;
-            }
+            _id = id;
+            return this;
         }
 
-        public String Name
+        public Person Age(int age)
         {
-            get { return _name; }
-            set
-            {
-                _name = value;
-            }
+            _age = age;
+            return this;
+        }
+        
+        public Person Name(String name)
+        {
+            _name = name;
+            return this;
         }
 
-        public String Email
+        public Person Email(String email)
         {
-            get { return _email; }
-            set
-            {
-                _email = value;
-            }
+            _email = email;
+            return this;
         }
+
+        #endregion
 
         // Methods
 
