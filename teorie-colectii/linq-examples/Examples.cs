@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -470,6 +471,197 @@ namespace teorie_colectii.linq_examples
                 Console.WriteLine(result.Car);
                 Console.WriteLine(result.Person);
             });
+        }
+
+        public static void ExampleUnion1() {
+            List<int> A = new List<int> { 1, 2, 3, 4, 5 };
+            List<int> B = new List<int> { 3, 4, 5, 6, 7 };
+
+            IEnumerable<int> union = A.Union(B);
+            IEnumerable<int> intersection = A.Intersect(B);
+            IEnumerable<int> difference = A.Except(B);
+
+            Console.WriteLine("UNION :");
+            union.ToList().ForEach(n =>
+            {
+                Console.Write($"{n} ");
+            });
+            Console.WriteLine();
+
+            Console.WriteLine("INTERSECTION :");
+            intersection.ToList().ForEach(n =>
+            {
+                Console.Write($"{n} ");
+            });
+            Console.WriteLine();
+
+            Console.WriteLine("DIFFERENCE :");
+            difference.ToList().ForEach(n =>
+            {
+                Console.Write($"{n} ");
+            });
+            Console.WriteLine("\n");
+        }
+
+        public static void ExampleUnion2()
+        {
+            List<Car> A = new List<Car>
+            {
+                ICar.BuildCar()
+                    .Id(1)
+                    .Make("Dacia")
+                    .Model("Logan")
+                    .Color("Black")
+                    .Year(2014),
+                ICar.BuildCar()
+                    .Id(2)
+                    .Make("Ford")
+                    .Model("Focus")         
+                    .Color("Blue")
+                    .Year(2016),
+                ICar.BuildCar()
+                    .Id(3)
+                    .Make("Volkswagen")
+                    .Model("Golf")
+                    .Color("White")
+                    .Year(2010)
+            };
+
+            List<Car> B = new List<Car>
+            {
+                ICar.BuildCar()
+                    .Id(2)          
+                    .Make("Ford")
+                    .Model("Focus")         
+                    .Color("Blue")
+                    .Year(2016),
+                ICar.BuildCar()
+                    .Id(3)
+                    .Make("Volkswagen")
+                    .Model("Golf")
+                    .Color("White")
+                    .Year(2010),
+                ICar.BuildCar()
+                    .Id(4)
+                    .Make("Volkswagen")
+                    .Model("Tiguan")
+                    .Color("Black")
+                    .Year(2012)
+            };
+
+            IEnumerable<Car> union = A.Union(B, new CarEqualityComparer());
+            IEnumerable<Car> intersection = A.Intersect(B, new CarEqualityComparer());
+            IEnumerable<Car> difference = A.Except(B, new CarEqualityComparer());
+
+
+            Console.WriteLine("UNION :");
+            union.ToList().ForEach(car =>
+            {
+                Console.WriteLine(car);
+            });
+            Console.WriteLine();
+
+            Console.WriteLine("INTERSECTION :");
+            intersection.ToList().ForEach(car =>
+            {
+                Console.WriteLine(car);
+            });
+            Console.WriteLine();
+
+            Console.WriteLine("DIFFERENCE :");
+            difference.ToList().ForEach(car =>
+            {
+                Console.WriteLine(car);
+            });
+            Console.WriteLine();
+        }
+
+        public static void ExampleConditionVerifiers1()
+        {
+            List<int> numbers = new List<int> { 2, 4, 6, 8, 10 };
+
+            bool allEven = numbers.All(n => n % 2 == 0);
+            bool anyBiggerThan5 = numbers.Any(n => n > 5);
+
+            Console.WriteLine($"Are all numbers even? {allEven}");
+            Console.WriteLine($"Are there any numbers bigger than 5? {anyBiggerThan5}");
+        }
+
+        public static void ExampleConditionVerifiers2()
+        {
+            List<Car> cars = new List<Car>
+            {
+                ICar.BuildCar()
+                    .Id(1)
+                    .Make("Dacia")
+                    .Model("Logan")
+                    .Color("Black")
+                    .Year(2014),
+                ICar.BuildCar()
+                    .Id(2)
+                    .Make("Ford")
+                    .Model("Focus")
+                    .Color("Blue")
+                    .Year(2016),
+                ICar.BuildCar()
+                    .Id(3)
+                    .Make("Volkswagen")
+                    .Model("Golf")
+                    .Color("White")
+                    .Year(2010)
+            };
+
+            bool anyVolkswagen = cars.Any(car => car.GetMake().Equals("Volkswagen"));
+            bool allCarsNewerThan2015 = cars.All(car => car.GetYear() > 2015);
+
+            Console.WriteLine($"Are there any Volkswagen cars? {anyVolkswagen}");
+            Console.WriteLine($"Are all cars newer than 2015? {allCarsNewerThan2015}");
+        }
+
+        public static void ExampleFirstLast1()
+        {
+            List<int> numbers = new List<int> { 1, 2, 3, 4, 5, 6, 7 };
+
+            int firstOdd = numbers.First(n => n % 2 == 1);
+            int lastEven = numbers.Last(n => n % 2 == 0);
+            int secondElement = numbers.ElementAt(1);
+
+            Console.WriteLine($"First odd : {firstOdd}");
+            Console.WriteLine($"Last even : {lastEven}");
+            Console.WriteLine($"Second element : {secondElement}");
+        }
+
+        public static void ExampleFirstLast2()
+        {
+            List<Car> cars = new List<Car>
+            {
+                ICar.BuildCar()
+                    .Id(1)
+                    .Make("Dacia")
+                    .Model("Logan")
+                    .Color("Black")
+                    .Year(2014),
+                ICar.BuildCar()
+                    .Id(2)
+                    .Make("Ford")
+                    .Model("Focus")
+                    .Color("Blue")
+                    .Year(2016),
+                ICar.BuildCar()
+                    .Id(3)
+                    .Make("Volkswagen")
+                    .Model("Golf")
+                    .Color("White")
+                    .Year(2010)
+            };
+
+            Car firstFrom2016 = cars.First(car => car.GetYear() == 2016);
+            Car lastVolkswagen = cars.Last(car => car.GetMake().Equals("Volkswagen"));
+            Car thirdElement = cars.ElementAt(2);
+
+            Console.WriteLine($"First from 2016 :\n{firstFrom2016}");
+            Console.WriteLine($"Last Volkswagen :\n{lastVolkswagen}");
+            Console.WriteLine($"Third element :\ng{thirdElement}");
         }
     }
 }
