@@ -109,7 +109,8 @@ namespace teorie_colectii.car.model
 
         public override bool Equals(object? obj)
         {
-            return (obj as Car)._id == _id && (obj as Car)._make.Equals(_make) && (obj as Car)._model.Equals(_model) && (obj as Car)._color.Equals(_color) && (obj as Car)._year == _year;
+            Car car = obj as Car;
+            return car._id == _id && car._make.Equals(_make) && car._model.Equals(_model) && car._color.Equals(_color) && car._year == _year;
         }
 
         public int CompareTo(Car? other)

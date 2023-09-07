@@ -9,15 +9,11 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        Examples.ExampleListFiltering1();
-        Examples.ExampleListFiltering2();
-        Examples.ExampleListFiltering3();
-        Examples.ExampleSorting1();
-        Examples.ExampleSorting2();
-        Examples.ExampleSorting3();
-        Examples.ExampleGrouping1();
-        Examples.ExampleGrouping2();
-        Examples.ExampleJoining1();
-        Examples.ExampleJoining2();
+        Examples.ExampleUnion1();
+        Examples.ExampleUnion2();
+        Examples.ExampleConditionVerifiers1();
+        Examples.ExampleConditionVerifiers2();
+        Examples.ExampleFirstLast1();
+        Examples.ExampleFirstLast2();
     }
 }
