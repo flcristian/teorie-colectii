@@ -21,7 +21,7 @@ namespace teorie_colectii.linq_examples
             // Filtering even numbers and projecting their squares
             IEnumerable<int> evenSquares = numbers
                 .Where(n => n % 2 == 0)
-                .Select(n => n* n);
+                .Select(n => n * n);
 
             Console.WriteLine("Filtering example 1 :");
             evenSquares.ToList().ForEach(s =>
@@ -436,14 +436,14 @@ namespace teorie_colectii.linq_examples
             };
 
             var joined1 = from order in orders
-                         join car in cars on order.GetCarId() equals car.GetId()
-                         join person in persons on order.GetPersonId() equals person.GetId()
-                         select new
-                         {
-                             Order = order,
-                             Car = car,
-                             Person = person            
-                         };
+                          join car in cars on order.GetCarId() equals car.GetId()
+                          join person in persons on order.GetPersonId() equals person.GetId()
+                          select new
+                          {
+                              Order = order,
+                              Car = car,
+                              Person = person
+                          };
 
             Console.WriteLine("JOIN 1");
             joined1.ToList().ForEach(result =>
@@ -516,7 +516,7 @@ namespace teorie_colectii.linq_examples
                 ICar.BuildCar()
                     .Id(2)
                     .Make("Ford")
-                    .Model("Focus")         
+                    .Model("Focus")
                     .Color("Blue")
                     .Year(2016),
                 ICar.BuildCar()
@@ -530,9 +530,9 @@ namespace teorie_colectii.linq_examples
             List<Car> B = new List<Car>
             {
                 ICar.BuildCar()
-                    .Id(2)          
+                    .Id(2)
                     .Make("Ford")
-                    .Model("Focus")         
+                    .Model("Focus")
                     .Color("Blue")
                     .Year(2016),
                 ICar.BuildCar()
@@ -662,6 +662,157 @@ namespace teorie_colectii.linq_examples
             Console.WriteLine($"First from 2016 :\n{firstFrom2016}");
             Console.WriteLine($"Last Volkswagen :\n{lastVolkswagen}");
             Console.WriteLine($"Third element :\ng{thirdElement}");
+        }
+
+        public static void ExampleSquare()
+        {
+            List<int> numbers = new List<int> { 1, 2, 3, 4, 5 };
+
+            IEnumerable<int> squared = numbers.Select(n => n * n);
+
+            squared.ToList().ForEach(s =>
+            {
+                Console.WriteLine(s);
+            });
+        }
+
+        public static void ExampleDictionary1()
+        {
+            Dictionary<string, int> ageMap = new Dictionary<string, int>();
+
+            ageMap.Add("Alice", 25);
+            ageMap["Bob"] = 30;
+
+            int aliceAge = ageMap["Alice"];
+            Console.WriteLine($"Alice's age: {aliceAge}");
+
+            bool containsBob = ageMap.ContainsKey("Bob");
+            Console.WriteLine($"Contains Bob? {containsBob}");
+
+            foreach (var kvp in ageMap)
+            {
+                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+            }
+            Console.WriteLine();
+        }
+
+        public static void ExampleDictionary2()
+        {
+            Dictionary<int, Car> carMap = new Dictionary<int, Car>();
+
+            Car logan = ICar.BuildCar()
+                .Id(1)
+                .Make("Dacia")
+                .Model("Logan")
+                .Color("Black")
+                .Year(2012);
+            carMap.Add(logan.GetYear(), logan);
+            Car ram = ICar.BuildCar()
+                .Id(2)
+                .Make("RAM")
+                .Model("2500")
+                .Color("Silver")
+                .Year(2019);
+            carMap[ram.GetYear()] = ram;
+
+            Console.WriteLine($"2019 cars :\n{carMap[2019]}");
+            Console.WriteLine($"Has 2013 cars : {carMap.ContainsKey(2013)}");
+
+            carMap.ToList().ForEach(kvp =>
+            {
+                Console.WriteLine($"{kvp.Key}");
+                Console.WriteLine($"{kvp.Value}");
+            });
+        }
+
+        public static void ExampleDictionary3()
+        {
+            Dictionary<int, Car> carMap = new Dictionary<int, Car>();
+
+            Car logan = ICar.BuildCar()
+                .Id(1)
+                .Make("Dacia")
+                .Model("Logan")
+                .Color("Black")
+                .Year(2012);
+            carMap.Add(logan.GetYear(), logan);
+            Car ram = ICar.BuildCar()
+                .Id(2)
+                .Make("RAM")
+                .Model("2500")
+                .Color("Silver")
+                .Year(2019);
+            carMap[ram.GetYear()] = ram;
+
+            int yearSum = carMap.Sum(kvp => kvp.Value.GetYear());
+
+            Console.WriteLine("Dictionary sum example :");
+            Console.WriteLine($"Year sum : {yearSum}");
+        }
+
+        public static void ExampleDictionary4()
+        {
+            Dictionary<int, Car> carMap = new Dictionary<int, Car>();
+
+            Car logan = ICar.BuildCar()
+                .Id(1)
+                .Make("Dacia")
+                .Model("Logan")
+                .Color("Black")
+                .Year(2012);
+            carMap.Add(logan.GetYear(), logan);
+            Car ram = ICar.BuildCar()
+                .Id(2)
+                .Make("RAM")
+                .Model("2500")
+                .Color("Silver")
+                .Year(2019);
+            carMap[ram.GetYear()] = ram;
+
+            var sortedByYear = carMap.OrderBy(kvp => kvp.Key);
+            var sortedByModel = carMap.OrderBy(kvp => kvp.Value, new ModelComparator());
+
+            Console.WriteLine("SORTED BY YEAR (KEY) :");
+            sortedByYear.ToList().ForEach(kvp =>
+            {
+                Console.WriteLine($"{kvp.Key}");
+                Console.WriteLine($"{kvp.Value}");
+            });
+
+            Console.WriteLine("SORTED BY MODEL :");
+            sortedByModel.ToList().ForEach(kvp =>
+            {
+                Console.WriteLine($"{kvp.Key}");
+                Console.WriteLine($"{kvp.Value}");
+            });
+        }
+
+        public static void ExampleDictionary5()
+        {
+            Dictionary<int, Car> carMap = new Dictionary<int, Car>();
+
+            Car logan = ICar.BuildCar()
+                .Id(1)
+                .Make("Dacia")
+                .Model("Logan")
+                .Color("Black")
+                .Year(2012);
+            carMap.Add(logan.GetYear(), logan);
+            Car ram = ICar.BuildCar()
+                .Id(2)
+                .Make("RAM")
+                .Model("2500")
+                .Color("Silver")
+                .Year(2019);
+            carMap[ram.GetYear()] = ram;
+
+            var selected = carMap.Where(kvp => kvp.Value.GetYear() > 2015).Select(kvp => kvp.Value);
+
+            Console.WriteLine("Cars older than 2015 :");
+            selected.ToList().ForEach(car =>
+            {
+                Console.WriteLine(car);
+            });
         }
     }
 }
