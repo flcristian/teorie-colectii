@@ -15,5 +15,11 @@ internal class Program
         Examples.ExampleConditionVerifiers2();
         Examples.ExampleFirstLast1();
         Examples.ExampleFirstLast2();
+        Examples.ExampleSquare();
+        Examples.ExampleDictionary1();
+        Examples.ExampleDictionary2();
+        Examples.ExampleDictionary3();
+        Examples.ExampleDictionary4();
+        Examples.ExampleDictionary5();
     }
 }
